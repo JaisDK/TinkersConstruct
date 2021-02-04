@@ -15,8 +15,10 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
   private static final int INPUT_COUNT = 5;
 
   private final TinkerStationTileEntity station;
+  /** Cache of the material recipes found in each slot */
   private final MaterialRecipe[] materials = new MaterialRecipe[INPUT_COUNT];
-  private final boolean[] foundMaterial = new boolean[INPUT_COUNT];
+  /** Cache of whether each slot has been searched for a material */
+  private final boolean[] searchedMaterial = new boolean[INPUT_COUNT];
 
   private MaterialRecipe lastMaterialRecipe;
   @Nullable
@@ -63,7 +65,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
   public void refreshInput(int slot) {
     if (slot >= 0 && slot < INPUT_COUNT) {
       this.materials[slot] = null;
-      this.foundMaterial[slot] = false;
+      this.searchedMaterial[slot] = false;
     }
   }
 
@@ -77,7 +79,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
     if (index < 0 || index >= INPUT_COUNT) {
       return ItemStack.EMPTY;
     }
-    return this.station.getStackInSlot(index);
+    return this.station.getStackInSlot(index + TinkerStationTileEntity.INPUT_SLOT);
   }
 
   @Override
@@ -91,9 +93,9 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
     if (index < 0 || index >= INPUT_COUNT) {
       return null;
     }
-    if (!foundMaterial[index]) {
+    if (!searchedMaterial[index]) {
       materials[index] = findMaterialRecipe(getInput(index));
-      foundMaterial[index] = true;
+      searchedMaterial[index] = true;
     }
     return materials[index];
   }
@@ -101,7 +103,7 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
   @Override
   public void setInput(int index, ItemStack stack) {
     if (index >= 0 && index < INPUT_COUNT) {
-      this.station.setInventorySlotContents(index, stack);
+      this.station.setInventorySlotContents(index + TinkerStationTileEntity.INPUT_SLOT, stack);
     }
   }
 
