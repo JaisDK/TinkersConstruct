@@ -11,9 +11,11 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class TinkerStationInventoryWrapper implements IMutableTinkerStationInventory {
-  private static final int INPUT_COUNT = 5;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_COUNT;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.INPUT_SLOT;
+import static slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity.TINKER_SLOT;
 
+public class TinkerStationInventoryWrapper implements IMutableTinkerStationInventory {
   private final TinkerStationTileEntity station;
   /** Cache of the material recipes found in each slot */
   private final MaterialRecipe[] materials = new MaterialRecipe[INPUT_COUNT];
@@ -63,15 +65,15 @@ public class TinkerStationInventoryWrapper implements IMutableTinkerStationInven
    * Clears the cached inputs
    */
   public void refreshInput(int slot) {
-    if (slot >= 0 && slot < INPUT_COUNT) {
-      this.materials[slot] = null;
-      this.searchedMaterial[slot] = false;
+    if (slot >= INPUT_SLOT && slot < INPUT_COUNT + INPUT_SLOT) {
+      this.materials[slot - 1] = null;
+      this.searchedMaterial[slot - 1] = false;
     }
   }
 
   @Override
   public ItemStack getTinkerableStack() {
-    return this.station.getStackInSlot(TinkerStationTileEntity.TINKER_SLOT);
+    return this.station.getStackInSlot(TINKER_SLOT);
   }
 
   @Override
