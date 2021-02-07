@@ -61,7 +61,7 @@ final class MaterialStats {
                      HandleMaterialStats.DEFAULT.withDurability(0.8f).withMiningSpeed(1.2f),
                      ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.slimewood,
-                     new HeadMaterialStats(560, 4f, IRON, 1f),
+                     new HeadMaterialStats(375, 4f, IRON, 1f),
                      HandleMaterialStats.DEFAULT.withDurability(1.3f).withMiningSpeed(0.85f).withAttackDamage(0.85f),
                      ExtraMaterialStats.DEFAULT);
     // vanilla gold: 32, 12f, WOOD, 0f
