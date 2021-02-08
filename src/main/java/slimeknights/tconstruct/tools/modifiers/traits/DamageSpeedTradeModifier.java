@@ -3,21 +3,16 @@ package slimeknights.tconstruct.tools.modifiers.traits;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IModifierToolStack;
-
-import java.util.UUID;
 
 /**
  * Shared logic for jagged and stonebound. Trait boosts attack damage as it lowers mining speed.
  */
 public class DamageSpeedTradeModifier extends Modifier {
   private static final String KEY_MINING_BOOST = Util.makeTranslationKey("modifier", "damage_speed_trade.suffix");
-  private final Lazy<String> attributeName = Lazy.of(() -> getId().toString());
-  private final Lazy<UUID> attributeUUID = Lazy.of(() -> UUID.nameUUIDFromBytes(attributeName.get().getBytes()));
   private final float multiplier;
 
   /**
