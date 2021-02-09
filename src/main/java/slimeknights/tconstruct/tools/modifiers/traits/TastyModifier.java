@@ -26,8 +26,8 @@ public class TastyModifier extends Modifier {
       if (!holder.world.isRemote && foodStats.needFood() && (foodStats.getFoodLevel() < 7 || RANDOM.nextFloat() < (0.01f * level))) {
         // restores 1 per pig iron level, and better pig iron is more filling
         foodStats.addStats(level, level * 0.1f);
-        // 15 damage for a bite per level, does not go through reinforced/overslime, your teeth are tough
-        tool.setDamage(tool.getDamage() - (5 * level));
+        // 5 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
+        tool.setDamage(tool.getDamage() + (5 * level));
         // play the munch sound
         holder.getEntityWorld().playSound(null, holder.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8f, 1.0f);
       }
