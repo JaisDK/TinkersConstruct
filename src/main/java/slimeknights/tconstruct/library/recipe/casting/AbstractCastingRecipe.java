@@ -58,7 +58,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
       boolean consumed = false;
       boolean switchSlots = JSONUtils.getBoolean(json, "switch_slots", false);
       if (json.has("cast")) {
-        cast = Ingredient.deserialize(JsonHelper.getElement(json, "cast"));
+        cast = Ingredient.fromStacks(ItemOutput.fromJson(JsonHelper.getElement(json, "cast")).get());
         consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
       }
       return create(recipeId, group, cast, consumed, switchSlots, json);
